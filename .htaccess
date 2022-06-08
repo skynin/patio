@@ -1,0 +1,35 @@
+# Mod_Autoindex
+<IfModule mod_autoindex.c>
+    # Disable Indexes
+    Options -Indexes
+</IfModule>
+
+# Mod_Rewrite
+<IfModule mod_rewrite.c>
+    # Enable symlinks
+    Options +FollowSymlinks
+
+IndexIgnore */*
+
+    # Enable mod_rewrite
+    RewriteEngine On
+
+
+# Redirect all requests to web
+#    RewriteCond %{REQUEST_URI} ^(.*)$
+#    RewriteRule ^(.*)$ www/$1
+
+RewriteCond %{REQUEST_URI} !^/(www)
+RewriteRule ^assets/(.*)$ /www/assets/$1 [L]
+RewriteRule ^css/(.*)$ www/css/$1 [L]
+RewriteRule ^fonts/(.*)$ www/fonts/$1 [L]
+RewriteRule ^photo/(.*)$ www/photo/$1 [L]
+RewriteRule ^js/(.*)$ www/js/$1 [L]
+RewriteRule ^images/(.*)$ www/images/$1 [L]
+RewriteRule (.*) /www/$1
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /www/index.php
+
+</IfModule>
