@@ -4,11 +4,13 @@ use routes\URLs;
 
 /** @var Album $album */
 
-?>
+$frontPhoto = $album->frontPhoto();
 
+if ($frontPhoto):
+?>
 <div class="photo-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
   <a href="<?= URLs::urlAlbum($idA) ?>">
-    <img src="<?= URLs::thumbPhoto($album->frontPhoto()) ?>" alt="frontPhoto">
+    <img src="<?= URLs::thumbPhoto($frontPhoto) ?>" alt="frontPhoto">
   </a>
 
   <aside class="photo-box-caption">
@@ -17,3 +19,5 @@ use routes\URLs;
     </span>
   </aside>
 </div>
+<?php
+endif;

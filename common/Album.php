@@ -37,11 +37,11 @@ class Album {
   public const I_NAME = '1.txt';
 
   public function frontPhoto() {
-    $front = reset($this->photos);
-
-    // return '6/5515/9199788659_818383d0b8_k.jpg';
-
-    return $front->front();
+    foreach ($this->photos as $eachPhoto) {
+      $result = $eachPhoto->front();
+      if ($result) return $result;
+    }
+    return null;
   }
 
   public function __construct($idA, $dir, $year) {

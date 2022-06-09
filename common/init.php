@@ -74,5 +74,5 @@ function prefixHash(string $prefix, $data, $saveExt = '.') {
     }
   }
   
-  return $prefix . hash('adler32', $data) . $ext;
+  return $prefix . hash('md4', $data) . $ext;
 }

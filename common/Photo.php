@@ -2,6 +2,7 @@
 namespace common;
 
 use common\Album;
+use Idearia\Logger;
 
 /**
  * @property string[] $tags
@@ -31,8 +32,14 @@ class Photo {
     $frontSample = AlbumsIndex::$DIR_THUMB . $shortSample;
     $origImage = AlbumsIndex::$DIR_ORIG . $this->album->id . $this->fileName;
 
-    if (!file_exists($frontSample)) {
-      img_resize(self::$SIZE_FRONT, $frontSample, $origImage);
+    try {
+      if (!file_exists($frontSample)) {
+        img_resize(self::$SIZE_FRONT, $frontSample, $origImage);
+      }
+    } catch (\Exception $ex) {
+      Logger::error(['f' => $shortSample, '0' => $origImage], 'img_resize');
+      Logger::error($ex->getTraceAsString(), 'img_resize');
+      return null;
     }
 
     return $shortSample;
@@ -47,8 +54,14 @@ class Photo {
     $thumbSample = AlbumsIndex::$DIR_THUMB . $shortSample;
     $origImage = AlbumsIndex::$DIR_ORIG . $this->album->id . $this->fileName;
 
-    if (!file_exists($thumbSample)) {
-      img_resize(self::$SIZE_THUMB, $thumbSample, $origImage);
+    try {
+      if (!file_exists($thumbSample)) {
+        img_resize(self::$SIZE_THUMB, $thumbSample, $origImage);
+      }
+    } catch (\Exception $ex) {
+      Logger::error(['t' => $shortSample, '0' => $origImage], 'img_resize');
+      Logger::error($ex->getTraceAsString(), 'img_resize');
+      return null;
     }
 
     return $shortSample;
